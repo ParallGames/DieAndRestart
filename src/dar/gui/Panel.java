@@ -1,4 +1,4 @@
-package dar.graphics;
+package dar.gui;
 
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;

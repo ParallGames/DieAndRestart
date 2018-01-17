@@ -1,6 +1,6 @@
 package dar;
 
-import dar.graphics.Window;
+import dar.gui.Window;
 import javafx.application.Application;
 
 public class Main {
