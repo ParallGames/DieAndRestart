@@ -19,7 +19,7 @@ public class Sprite extends Transition {
     private int lastIndex;
 
     public Sprite(
-            ImageView imageView, 
+            ImageView imageView,
             Duration duration, 
             int count,   int columns,
             int offsetX, int offsetY,
@@ -32,7 +32,7 @@ public class Sprite extends Transition {
         this.width     = width;
         this.height    = height;
         setCycleDuration(duration);
-        setInterpolator(Interpolator.LINEAR);
+        setInterpolator(Interpolator.LINEAR); //TODO : sync with val
     }
 
     protected void interpolate(double k) {
