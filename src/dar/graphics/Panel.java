@@ -14,7 +14,7 @@ public class Panel extends Group {
 
 		gc = canvas.getGraphicsContext2D();
 		gc.setFill(Color.rgb(255, 255, 255));
-	}
+	} //Test
 
 	public void update() {
 
