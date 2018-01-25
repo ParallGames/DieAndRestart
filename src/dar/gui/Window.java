@@ -1,5 +1,6 @@
 package dar.gui;
 
+import dar.player.Player;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -7,6 +8,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Window extends Application {
+
+	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 720;
 
 	private Panel panel = new Panel();
 
@@ -18,7 +22,8 @@ public class Window extends Application {
 	public void start(Stage primaryStage) {
 		Group root = new Group();
 		root.getChildren().add(panel);
-		Scene scene = new Scene(root, 1280, 720);
+
+		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		scene.setFill(Color.rgb(0, 0, 0));
 
 		panel.update();
@@ -28,10 +33,15 @@ public class Window extends Application {
 		primaryStage.setTitle("Die And Restart");
 		primaryStage.show();
 
+		Key key = new Key();
+		root.getChildren().add(key);
+		key.requestFocus();
+
 		new Thread() {
 			@Override
 			public void run() {
 				while (primaryStage.isShowing()) {
+					Player.tick();
 					panel.update();
 
 					long sleep = time - System.nanoTime() + interval;
