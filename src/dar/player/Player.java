@@ -1,6 +1,7 @@
 package dar.player;
 
 import dar.gui.Key;
+import dar.world.Blocks;
 import dar.world.World;
 
 public class Player {
@@ -46,23 +47,25 @@ public class Player {
 		canJump = false;
 	}
 
-	public static void tick() {
-		if (Key.isADown()) {
-			accelX(-10);
-		} else if (Key.isDDown()) {
-			accelX(10);
-		}
-		if (Key.isWDown()) {
-			jump();
-		}
-		speedY -= 10;
-
-		int moveX = speedX;
+	public static void moveX(int moveX) {
 		if (moveX > 0) {
 			while (moveX != 0) {
 				if (x >= World.WIDTH * 1000 - Player.getWidth()) {
 					speedX = 0;
-					break;
+					return;
+				}
+				for (int x = 0; x < World.WIDTH; x++) {
+					for (int y = 0; y < World.HEIGHT; y++) {
+						if (!Blocks.get(World.get(x, y)).isAir()) {
+							if ((Player.height + 1000) / 2 > Math
+									.abs((Player.y + Player.height / 2) - (y * 1000 + 500))) {
+								if (Player.width + Player.x == x * 1000) {
+									speedX = 0;
+									return;
+								}
+							}
+						}
+					}
 				}
 				x++;
 				moveX--;
@@ -71,19 +74,46 @@ public class Player {
 			while (moveX != 0) {
 				if (x <= 0) {
 					speedX = 0;
-					break;
+					return;
+				}
+				for (int x = 0; x < World.WIDTH; x++) {
+					for (int y = 0; y < World.HEIGHT; y++) {
+						if (!Blocks.get(World.get(x, y)).isAir()) {
+							if ((Player.height + 1000) / 2 > Math
+									.abs((Player.y + Player.height / 2) - (y * 1000 + 500))) {
+								if (x * 1000 + 1000 == Player.x) {
+									speedX = 0;
+									return;
+								}
+							}
+						}
+					}
 				}
 				x--;
 				moveX++;
 			}
 		}
+	}
 
-		int moveY = speedY;
+	public static void moveY(int moveY) {
 		if (moveY > 0) {
 			while (moveY != 0) {
 				if (y >= World.HEIGHT * 1000 - Player.getHeight()) {
 					speedY = 0;
 					break;
+				}
+				for (int x = 0; x < World.WIDTH; x++) {
+					for (int y = 0; y < World.HEIGHT; y++) {
+						if (!Blocks.get(World.get(x, y)).isAir()) {
+							if ((Player.width + 1000) / 2 > Math
+									.abs((Player.x + Player.width / 2) - (x * 1000 + 500))) {
+								if (Player.height + Player.y == y * 1000) {
+									speedY = 0;
+									return;
+								}
+							}
+						}
+					}
 				}
 				y++;
 				moveY--;
@@ -95,10 +125,47 @@ public class Player {
 					canJump = true;
 					break;
 				}
+				for (int x = 0; x < World.WIDTH; x++) {
+					for (int y = 0; y < World.HEIGHT; y++) {
+						if (!Blocks.get(World.get(x, y)).isAir()) {
+							if ((Player.width + 1000) / 2 > Math
+									.abs((Player.x + Player.width / 2) - (x * 1000 + 500))) {
+								if (y * 1000 + 1000 == Player.y) {
+									speedY = 0;
+									canJump = true;
+									return;
+								}
+							}
+						}
+					}
+				}
 				y--;
 				moveY++;
 			}
 		}
+	}
+
+	public static void tick() {
+		int speed = 10;
+		if (Key.isShiftDown()) {
+			speed = 5;
+		} else if (Key.isCtrlDown()) {
+			speed = 20;
+		}
+		if (Key.isADown()) {
+			accelX(-speed);
+		}
+		if (Key.isDDown()) {
+			accelX(speed);
+		}
+		if (Key.isWDown()) {
+			jump();
+		}
+		speedY -= 10;
+
+		moveX(speedX);
+
+		moveY(speedY);
 
 		speedX -= speedX / 10;
 		speedY -= speedY / 100;
@@ -113,5 +180,8 @@ public class Player {
 		} else if (speedY < 0) {
 			speedY++;
 		}
+
+		System.out.println(x);
+		System.out.println(y);
 	}
 }

@@ -1,6 +1,8 @@
 package dar.gui;
 
 import dar.player.Player;
+import dar.textures.Textures;
+import dar.world.World;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
@@ -8,8 +10,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Panel extends Group {
-	private static final double SIZE = 80;
-	private static final double SIZE_FACTOR = SIZE / 1000;
+	public static final double SIZE = 80;
+	public static final double SIZE_FACTOR = SIZE / 1000;
 
 	GraphicsContext gc;
 
@@ -23,13 +25,22 @@ public class Panel extends Group {
 
 	public void update() {
 		double x = Player.getX() * SIZE_FACTOR;
-		double y = 720 - (Player.getY() + Player.getHeight()) * SIZE_FACTOR;
+		double y = Window.HEIGHT - (Player.getY() + Player.getHeight()) * SIZE_FACTOR;
 
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 				gc.clearRect(0, 0, Window.WIDTH, Window.HEIGHT);
-				gc.fillRect(x, y, Player.getWidth() * SIZE_FACTOR, Player.getHeight() * SIZE_FACTOR);
+
+				for (int x = 0; x < World.WIDTH; x++) {
+					for (int y = 0; y < World.HEIGHT; y++) {
+						if (World.get(x, y) != 0) {
+							gc.drawImage(Textures.getBlockTexture(World.get(x, y)), x * SIZE,
+									Window.HEIGHT - y * SIZE - SIZE);
+						}
+					}
+				}
+				gc.drawImage(Textures.getPlayerTexture(), x, y);
 			}
 		});
 	}
