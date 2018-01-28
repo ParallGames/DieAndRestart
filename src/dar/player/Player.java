@@ -42,7 +42,7 @@ public class Player {
 
 	public static void jump() {
 		if (canJump) {
-			speedY += 200;
+			speedY += 170;
 		}
 		canJump = false;
 	}
@@ -180,8 +180,5 @@ public class Player {
 		} else if (speedY < 0) {
 			speedY++;
 		}
-
-		System.out.println(x);
-		System.out.println(y);
 	}
 }
