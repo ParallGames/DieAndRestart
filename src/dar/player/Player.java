@@ -14,6 +14,8 @@ public class Player {
 	private static int speedX = 0;
 	private static int speedY = 0;
 
+	private static boolean direction = false;
+	
 	private static boolean canJump = false;
 
 	public static int getX() {
@@ -154,9 +156,11 @@ public class Player {
 		}
 		if (Key.isADown()) {
 			accelX(-speed);
+			direction = true;
 		}
 		if (Key.isDDown()) {
 			accelX(speed);
+			direction = false;
 		}
 		if (Key.isWDown()) {
 			jump();
@@ -180,5 +184,9 @@ public class Player {
 		} else if (speedY < 0) {
 			speedY++;
 		}
+	}
+	
+	public static boolean getDirection() {
+		return direction;
 	}
 }

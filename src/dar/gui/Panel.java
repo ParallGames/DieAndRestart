@@ -40,7 +40,11 @@ public class Panel extends Group {
 						}
 					}
 				}
-				gc.drawImage(Textures.getPlayerTexture(), x, y);
+				if(Player.getDirection()) {
+					gc.drawImage(Textures.getPlayerLeftTexture(), x, y);
+				} else {
+					gc.drawImage(Textures.getPlayerRightTexture(), x, y);
+				}
 			}
 		});
 	}
