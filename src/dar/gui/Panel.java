@@ -1,6 +1,5 @@
 package dar.gui;
 
-import dar.player.Player;
 import dar.textures.Textures;
 import dar.world.World;
 import javafx.application.Platform;
@@ -24,8 +23,8 @@ public class Panel extends Group {
 	}
 
 	public void update() {
-		double x = Player.getX() * SIZE_FACTOR;
-		double y = Window.HEIGHT - (Player.getY() + Player.getHeight()) * SIZE_FACTOR;
+		double x = World.getPlayer().getX() * SIZE_FACTOR;
+		double y = Window.HEIGHT - (World.getPlayer().getY() + World.getPlayer().getHeight()) * SIZE_FACTOR;
 
 		Platform.runLater(new Runnable() {
 			@Override
@@ -40,7 +39,7 @@ public class Panel extends Group {
 						}
 					}
 				}
-				if(Player.getDirection()) {
+				if (World.getPlayer().getDirection()) {
 					gc.drawImage(Textures.getPlayerLeftTexture(), x, y);
 				} else {
 					gc.drawImage(Textures.getPlayerRightTexture(), x, y);

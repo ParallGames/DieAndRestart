@@ -1,7 +1,7 @@
 package dar.gui;
 
-import dar.player.Player;
 import dar.textures.Textures;
+import dar.world.World;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -43,7 +43,7 @@ public class Window extends Application {
 			@Override
 			public void run() {
 				while (primaryStage.isShowing()) {
-					Player.tick();
+					World.getPlayer().tick();
 					panel.update();
 
 					long sleep = time - System.nanoTime() + interval;
