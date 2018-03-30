@@ -1,11 +1,13 @@
 package dar.gui;
 
 import dar.textures.Textures;
+import dar.world.BlockID;
 import dar.world.World;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Panel extends Group {
@@ -33,17 +35,18 @@ public class Panel extends Group {
 
 				for (int x = 0; x < World.WIDTH; x++) {
 					for (int y = 0; y < World.HEIGHT; y++) {
-						if (World.get(x, y) != 0) {
+						if (World.get(x, y) != BlockID.AIR) {
 							gc.drawImage(Textures.getBlockTexture(World.get(x, y)), x * SIZE,
 									Window.HEIGHT - y * SIZE - SIZE);
 						}
 					}
 				}
-				if (World.getPlayer().getDirection()) {
-					gc.drawImage(Textures.getPlayerLeftTexture(), x, y);
-				} else {
-					gc.drawImage(Textures.getPlayerRightTexture(), x, y);
-				}
+
+				Image playerTexture = World.getPlayer().getDirection() ? Textures.getPlayerLeftTexture()
+						: Textures.getPlayerRightTexture();
+
+				gc.drawImage(playerTexture, x, y, World.getPlayer().getWidth() * SIZE_FACTOR,
+						World.getPlayer().getHeight() * SIZE_FACTOR);
 			}
 		});
 	}

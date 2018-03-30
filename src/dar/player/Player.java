@@ -24,8 +24,10 @@ public class Player extends Entity {
 	@Override
 	public void tick() {
 		int speed = 10;
+		height = 1800;
 		if (Key.isShiftDown()) {
 			speed = 5;
+			height = 1300;
 		} else if (Key.isCtrlDown()) {
 			speed = 20;
 		}

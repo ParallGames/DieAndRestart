@@ -1,14 +1,8 @@
 package dar.world;
 
 public abstract class Block {
-	protected int id;
-	protected boolean isAir;
 
-	public int getId() {
-		return id;
-	}
+	abstract public BlockID getID();
 
-	public boolean isAir() {
-		return isAir;
-	}
+	abstract public boolean isAir();
 }
