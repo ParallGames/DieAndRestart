@@ -41,100 +41,91 @@ public abstract class Entity {
 	}
 
 	public void moveX(int moveX) {
-		if (moveX > 0) {
-			while (moveX != 0) {
-				if (x >= World.WIDTH * 1000 - this.width) {
-					speedX = 0;
-					return;
-				}
-				for (int x = 0; x < World.WIDTH; x++) {
-					for (int y = 0; y < World.HEIGHT; y++) {
-						if (!Blocks.get(World.get(x, y)).isAir()) {
-							if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
-								if (this.width + this.x == x * 1000) {
-									speedX = 0;
-									return;
-								}
-							}
+		while (moveX > 0) {
+			if (x >= World.WIDTH * 1000 - this.width) {
+				speedX = 0;
+				return;
+			}
+			int x = (this.x + this.width) / 1000;
+			for (int y = 0; y < World.HEIGHT; y++) {
+				if (!Blocks.get(World.get(x, y)).isAir()) {
+					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
+						if (this.width + this.x == x * 1000) {
+							speedX = 0;
+							return;
 						}
 					}
 				}
-				x++;
-				moveX--;
 			}
-		} else if (moveX < 0) {
-			while (moveX != 0) {
-				if (x <= 0) {
-					speedX = 0;
-					return;
-				}
-				for (int x = 0; x < World.WIDTH; x++) {
-					for (int y = 0; y < World.HEIGHT; y++) {
-						if (!Blocks.get(World.get(x, y)).isAir()) {
-							if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
-								if (x * 1000 + 1000 == this.x) {
-									speedX = 0;
-									return;
-								}
-							}
+			this.x++;
+			moveX--;
+		}
+		while (moveX < 0) {
+			if (x <= 0) {
+				speedX = 0;
+				return;
+			}
+			int x = (this.x - 1) / 1000;
+			for (int y = 0; y < World.HEIGHT; y++) {
+				if (!Blocks.get(World.get(x, y)).isAir()) {
+					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
+						if (x * 1000 + 1000 == this.x) {
+							speedX = 0;
+							return;
 						}
 					}
 				}
-				x--;
-				moveX++;
 			}
+			this.x--;
+			moveX++;
 		}
 	}
 
 	public void moveY(int moveY) {
-		if (moveY > 0) {
-			while (moveY != 0) {
-				if (y >= World.HEIGHT * 1000 - this.height) {
-					speedY = 0;
-					break;
-				}
-				for (int x = 0; x < World.WIDTH; x++) {
-					for (int y = 0; y < World.HEIGHT; y++) {
-						if (!Blocks.get(World.get(x, y)).isAir()) {
-							if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
-								if (this.height + this.y == y * 1000) {
-									speedY = 0;
-									return;
-								}
-							}
+		while (moveY > 0) {
+			if (y >= World.HEIGHT * 1000 - this.height) {
+				speedY = 0;
+				break;
+			}
+			int y = (this.y + this.height) / 1000;
+			for (int x = 0; x < World.WIDTH; x++) {
+				if (!Blocks.get(World.get(x, y)).isAir()) {
+					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
+						if (this.height + this.y == y * 1000) {
+							speedY = 0;
+							return;
 						}
 					}
 				}
-				y++;
-				moveY--;
 			}
-		} else if (moveY < 0) {
-			while (moveY != 0) {
-				if (y <= 0) {
-					speedY = 0;
-					canJump = true;
-					break;
-				}
-				for (int x = 0; x < World.WIDTH; x++) {
-					for (int y = 0; y < World.HEIGHT; y++) {
-						if (!Blocks.get(World.get(x, y)).isAir()) {
-							if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
-								if (y * 1000 + 1000 == this.y) {
-									speedY = 0;
-									canJump = true;
-									return;
-								}
-							}
+			this.y++;
+			moveY--;
+		}
+		while (moveY < 0) {
+			if (y <= 0) {
+				speedY = 0;
+				canJump = true;
+				break;
+			}
+			int y = (this.y - 1) / 1000;
+			for (int x = 0; x < World.WIDTH; x++) {
+				if (!Blocks.get(World.get(x, y)).isAir()) {
+					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
+						if (y * 1000 + 1000 == this.y) {
+							speedY = 0;
+							canJump = true;
+							return;
 						}
 					}
 				}
-				y--;
-				moveY++;
 			}
+			this.y--;
+			moveY++;
 		}
 	}
 
 	public void tick() {
+		canJump = false;
 		moveX(speedX);
 		moveY(speedY);
 
