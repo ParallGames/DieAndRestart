@@ -22,9 +22,5 @@ echo -e "\n\033[1;31mArchiving\033[0m";
 mkdir build/release
 jar cvmf MANIFEST.MF build/release/DAR.jar -C build/class .
 
-#proguard
-echo -e "\n\033[1;31mProguard\033[0m";
-proguard @config.pro
-
 #end
 echo -e "\n\033[1;31mCompleted\033[0m\n";
