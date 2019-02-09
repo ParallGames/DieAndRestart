@@ -21,12 +21,27 @@ public class Textures {
 				false);
 	}
 
-	public static void addBlockTexture(Image texture, Block target) {
+	public static void addBlockTexture(Block target, Image texture) {
+		if (!target.render()) {
+			throw new RuntimeException(
+					"The " + target.getFullName() + " block isn't rendered. it's useless to give it a textre.");
+		}
+
+		if (blockTextures.containsKey(target)) {
+			throw new RuntimeException("The " + target.getFullName() + " block already has a texture.");
+		}
+
 		blockTextures.put(target, texture);
 	}
 
 	public static Image getBlockTexture(Block target) {
-		return blockTextures.get(target);
+		Image texture = blockTextures.get(target);
+
+		if (texture == null) {
+			throw new RuntimeException("No texture found for " + target.getFullName() + " block.");
+		}
+
+		return texture;
 	}
 
 	public static Image getPlayerRightTexture() {
