@@ -1,7 +1,6 @@
 package dar.gui;
 
 import dar.textures.Textures;
-import dar.world.BlockID;
 import dar.world.World;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -14,7 +13,7 @@ public class Panel extends Group {
 	public static final double SIZE = Window.HEIGHT / World.HEIGHT;
 	public static final double SIZE_FACTOR = SIZE / 1000;
 
-	GraphicsContext gc;
+	private final GraphicsContext gc;
 
 	public Panel() {
 		Canvas canvas = new Canvas(Window.WIDTH, Window.HEIGHT);
@@ -35,9 +34,9 @@ public class Panel extends Group {
 
 				for (int x = 0; x < World.WIDTH; x++) {
 					for (int y = 0; y < World.HEIGHT; y++) {
-						if (World.get(x, y) != BlockID.AIR) {
+						if (World.get(x, y).render()) {
 							gc.drawImage(Textures.getBlockTexture(World.get(x, y)), x * SIZE,
-									Window.HEIGHT - y * SIZE - SIZE);
+									Window.HEIGHT - y * SIZE - SIZE, SIZE, SIZE);
 						}
 					}
 				}

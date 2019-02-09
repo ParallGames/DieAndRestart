@@ -1,6 +1,5 @@
 package dar.entities;
 
-import dar.world.Blocks;
 import dar.world.World;
 
 public abstract class Entity {
@@ -44,7 +43,7 @@ public abstract class Entity {
 		while (moveX > 0) {
 			int x = (this.x + this.width) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
-				if (!Blocks.get(World.get(x, y)).isAir()) {
+				if (!World.get(x, y).isAir()) {
 					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
 						if (this.width + this.x == x * 1000) {
 							speedX = 0;
@@ -59,7 +58,7 @@ public abstract class Entity {
 		while (moveX < 0) {
 			int x = (this.x - 1) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
-				if (!Blocks.get(World.get(x, y)).isAir()) {
+				if (!World.get(x, y).isAir()) {
 					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
 						if (x * 1000 + 1000 == this.x) {
 							speedX = 0;
@@ -77,7 +76,7 @@ public abstract class Entity {
 		while (moveY > 0) {
 			int y = (this.y + this.height) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
-				if (!Blocks.get(World.get(x, y)).isAir()) {
+				if (!World.get(x, y).isAir()) {
 					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
 						if (this.height + this.y == y * 1000) {
 							speedY = 0;
@@ -92,7 +91,7 @@ public abstract class Entity {
 		while (moveY < 0) {
 			int y = (this.y - 1) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
-				if (!Blocks.get(World.get(x, y)).isAir()) {
+				if (!World.get(x, y).isAir()) {
 					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
 						if (y * 1000 + 1000 == this.y) {
 							speedY = 0;

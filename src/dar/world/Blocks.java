@@ -1,25 +1,19 @@
 package dar.world;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dar.world.blocks.Air;
-import dar.world.blocks.Grass;
+import java.util.HashMap;
 
 public class Blocks {
-	private static final ArrayList<Block> blocks = new ArrayList<>();
+	private static final HashMap<Integer, Block> blocks = new HashMap<>();
 
-	public static void loadBlocks() {
-		blocks.add(new Air());
-
-		blocks.add(new Grass());
+	public static void addBlock(Block block) {
+		blocks.put(block.getID(), block);
 	}
 
-	public static List<Block> getBlocks() {
-		return blocks;
+	public static Block get(int id) {
+		return blocks.get(id);
 	}
 
-	public static Block get(BlockID id) {
-		return blocks.get(id.getID());
+	public static Block get(String fullName) {
+		return get(fullName.hashCode());
 	}
 }

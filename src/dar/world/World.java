@@ -6,23 +6,23 @@ public class World {
 	public static final int HEIGHT = 18;
 	public static final int WIDTH = 32;
 
-	private static BlockID[][] world = new BlockID[WIDTH][HEIGHT];
+	private static int[][] world = new int[WIDTH][HEIGHT];
 	private static Player player = new Player();
 
 	static {
 		for (int x = 0; x < WIDTH; x++) {
 			for (int y = 0; y < HEIGHT; y++) {
-				world[x][y] = BlockID.AIR;
+				world[x][y] = Blocks.get("dar:air").getID();
 			}
 		}
 
 		for (int x = 0; x < WIDTH; x++) {
-			world[x][0] = BlockID.GRASS;
+			world[x][0] = Blocks.get("dar:grass").getID();
 		}
 
 		for (int y = 0; y < HEIGHT; y++) {
-			world[0][y] = BlockID.GRASS;
-			world[WIDTH - 1][y] = BlockID.GRASS;
+			world[0][y] = Blocks.get("dar:grass").getID();
+			world[WIDTH - 1][y] = Blocks.get("dar:grass").getID();
 		}
 	}
 
@@ -30,11 +30,11 @@ public class World {
 		return player;
 	}
 
-	public static BlockID get(int x, int y) {
-		return world[x][y];
+	public static Block get(int x, int y) {
+		return Blocks.get(world[x][y]);
 	}
 
-	public static void set(int x, int y, BlockID block) {
-		world[x][y] = block;
+	public static void set(int x, int y, Block block) {
+		world[x][y] = block.getID();
 	}
 }

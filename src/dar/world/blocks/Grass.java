@@ -1,16 +1,25 @@
 package dar.world.blocks;
 
 import dar.world.Block;
-import dar.world.BlockID;
 
-public class Grass implements Block {
+public class Grass extends Block {
 	@Override
-	public BlockID getID() {
-		return BlockID.GRASS;
+	public String getModName() {
+		return "dar";
+	}
+
+	@Override
+	public String getName() {
+		return "grass";
 	}
 
 	@Override
 	public boolean isAir() {
 		return false;
+	}
+
+	@Override
+	public boolean render() {
+		return true;
 	}
 }

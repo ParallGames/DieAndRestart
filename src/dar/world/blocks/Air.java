@@ -1,16 +1,25 @@
 package dar.world.blocks;
 
 import dar.world.Block;
-import dar.world.BlockID;
 
-public class Air implements Block {
+public class Air extends Block {
 	@Override
-	public BlockID getID() {
-		return BlockID.AIR;
+	public String getModName() {
+		return "dar";
+	}
+
+	@Override
+	public String getName() {
+		return "air";
 	}
 
 	@Override
 	public boolean isAir() {
 		return true;
+	}
+
+	@Override
+	public boolean render() {
+		return false;
 	}
 }

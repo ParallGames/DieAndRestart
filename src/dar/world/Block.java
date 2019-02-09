@@ -1,7 +1,19 @@
 package dar.world;
 
-public interface Block {
-	public BlockID getID();
+public abstract class Block {
+	public abstract String getModName();
 
-	public boolean isAir();
+	public abstract String getName();
+
+	public abstract boolean isAir();
+
+	public abstract boolean render();
+
+	public final String getFullName() {
+		return getModName() + ":" + getName();
+	}
+
+	public final int getID() {
+		return getFullName().hashCode();
+	}
 }
