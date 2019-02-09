@@ -37,7 +37,7 @@ public class Key extends Group {
 	}
 
 	Key() {
-		this.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
+		this.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
 			if (key.getCode() == KeyCode.W) {
 				wDown = true;
 			}
@@ -58,7 +58,7 @@ public class Key extends Group {
 			}
 		});
 
-		this.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
+		this.addEventHandler(KeyEvent.KEY_RELEASED, key -> {
 			if (key.getCode() == KeyCode.W) {
 				wDown = false;
 			}

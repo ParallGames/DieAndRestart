@@ -1,8 +1,7 @@
 package dar.world;
 
-public abstract class Block {
+public interface Block {
+	public BlockID getID();
 
-	abstract public BlockID getID();
-
-	abstract public boolean isAir();
+	public boolean isAir();
 }

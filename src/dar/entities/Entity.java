@@ -13,7 +13,7 @@ public abstract class Entity {
 	protected int speedX = 0;
 	protected int speedY = 0;
 
-	protected boolean canJump = false;
+	protected boolean onFloor = false;
 	protected boolean direction = false;
 
 	public int getX() {
@@ -42,10 +42,6 @@ public abstract class Entity {
 
 	public void moveX(int moveX) {
 		while (moveX > 0) {
-			if (x >= World.WIDTH * 1000 - this.width) {
-				speedX = 0;
-				return;
-			}
 			int x = (this.x + this.width) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
 				if (!Blocks.get(World.get(x, y)).isAir()) {
@@ -61,10 +57,6 @@ public abstract class Entity {
 			moveX--;
 		}
 		while (moveX < 0) {
-			if (x <= 0) {
-				speedX = 0;
-				return;
-			}
 			int x = (this.x - 1) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
 				if (!Blocks.get(World.get(x, y)).isAir()) {
@@ -83,10 +75,6 @@ public abstract class Entity {
 
 	public void moveY(int moveY) {
 		while (moveY > 0) {
-			if (y >= World.HEIGHT * 1000 - this.height) {
-				speedY = 0;
-				break;
-			}
 			int y = (this.y + this.height) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
 				if (!Blocks.get(World.get(x, y)).isAir()) {
@@ -102,18 +90,13 @@ public abstract class Entity {
 			moveY--;
 		}
 		while (moveY < 0) {
-			if (y <= 0) {
-				speedY = 0;
-				canJump = true;
-				break;
-			}
 			int y = (this.y - 1) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
 				if (!Blocks.get(World.get(x, y)).isAir()) {
 					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
 						if (y * 1000 + 1000 == this.y) {
 							speedY = 0;
-							canJump = true;
+							onFloor = true;
 							return;
 						}
 					}
@@ -125,12 +108,11 @@ public abstract class Entity {
 	}
 
 	public void tick() {
-		canJump = false;
+		onFloor = false;
 		moveX(speedX);
 		moveY(speedY);
 
-		speedX = (int) (speedX * 0.9);
-		speedY = (int) (speedY * 0.99);
+		speedX *= 0.9;
 	}
 
 	public boolean getDirection() {

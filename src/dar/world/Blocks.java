@@ -1,12 +1,13 @@
 package dar.world;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import dar.world.blocks.Air;
 import dar.world.blocks.Grass;
 
 public class Blocks {
-	private static final Vector<Block> blocks = new Vector<Block>();
+	private static final ArrayList<Block> blocks = new ArrayList<>();
 
 	public static void loadBlocks() {
 		blocks.add(new Air());
@@ -14,7 +15,7 @@ public class Blocks {
 		blocks.add(new Grass());
 	}
 
-	public static Vector<Block> getBlocks() {
+	public static List<Block> getBlocks() {
 		return blocks;
 	}
 

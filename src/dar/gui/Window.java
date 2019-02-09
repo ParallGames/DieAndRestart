@@ -15,8 +15,8 @@ public class Window extends Application {
 
 	private Panel panel = new Panel();
 
-	private static final int fps = 60;
-	private static final long interval = 1_000_000_000 / fps;
+	private static final int FPS = 60;
+	private static final long INTERVAL = 1_000_000_000 / FPS;
 	private static long time = System.nanoTime();
 
 	@Override
@@ -46,7 +46,7 @@ public class Window extends Application {
 					World.getPlayer().tick();
 					panel.update();
 
-					long sleep = time - System.nanoTime() + interval;
+					long sleep = time - System.nanoTime() + INTERVAL;
 
 					if (sleep > 0) {
 						try {

@@ -1,6 +1,6 @@
 package dar.textures;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import dar.gui.Panel;
 import dar.world.Block;
@@ -15,18 +15,17 @@ public class Textures {
 	private static Image playerRightTexture;
 	private static Image playerLeftTexture;
 
-	private static Vector<Image> blocTextures = new Vector<Image>();
+	private static ArrayList<Image> blocTextures = new ArrayList<>();
 
 	public static void loadTextures() {
-		playerRightTexture = new Image(Panel.class.getResource(PATH + "playerRight.png").toString(),
+		playerRightTexture = new Image(Panel.class.getResourceAsStream(PATH + "playerRight.png"),
 				World.getPlayer().getWidth() * Panel.SIZE_FACTOR, World.getPlayer().getHeight() * Panel.SIZE_FACTOR,
 				false, true);
 		playerLeftTexture = new Image(Panel.class.getResource(PATH + "playerLeft.png").toString(),
 				World.getPlayer().getWidth() * Panel.SIZE_FACTOR, World.getPlayer().getHeight() * Panel.SIZE_FACTOR,
 				false, true);
 		for (Block block : Blocks.getBlocks()) {
-			blocTextures.add(new Image(
-					Textures.class.getResource(PATH + "blocks/" + String.valueOf(block.getID()) + ".png").toString(),
+			blocTextures.add(new Image(Textures.class.getResource(PATH + "blocks/" + block.getID() + ".png").toString(),
 					Panel.SIZE, Panel.SIZE, false, true));
 		}
 	}

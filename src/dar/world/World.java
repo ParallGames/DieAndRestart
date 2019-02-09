@@ -3,10 +3,10 @@ package dar.world;
 import dar.player.Player;
 
 public class World {
-	public static final int HEIGHT = 9 * 2;
-	public static final int WIDTH = 16 * 2;
+	public static final int HEIGHT = 18;
+	public static final int WIDTH = 32;
 
-	private static BlockID world[][] = new BlockID[WIDTH][HEIGHT];
+	private static BlockID[][] world = new BlockID[WIDTH][HEIGHT];
 	private static Player player = new Player();
 
 	static {
@@ -14,6 +14,15 @@ public class World {
 			for (int y = 0; y < HEIGHT; y++) {
 				world[x][y] = BlockID.AIR;
 			}
+		}
+
+		for (int x = 0; x < WIDTH; x++) {
+			world[x][0] = BlockID.GRASS;
+		}
+
+		for (int y = 0; y < HEIGHT; y++) {
+			world[0][y] = BlockID.GRASS;
+			world[WIDTH - 1][y] = BlockID.GRASS;
 		}
 	}
 

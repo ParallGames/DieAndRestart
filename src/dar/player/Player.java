@@ -8,17 +8,16 @@ public class Player extends Entity {
 	public Player() {
 		this.height = 1800;
 		this.width = 800;
-		this.x = 0;
-		this.y = 0;
+		this.x = 1000;
+		this.y = 1000;
 		this.speedX = 0;
 		this.speedY = 0;
 	}
 
 	public void jump() {
-		if (canJump) {
-			speedY += 170;
+		if (onFloor) {
+			speedY += 160;
 		}
-		canJump = false;
 	}
 
 	@Override
