@@ -22,14 +22,4 @@ public class Blocks {
 
 		return block;
 	}
-
-	public static Block get(String fullName) {
-		Block block = blocks.get(fullName.hashCode());
-
-		if (block == null) {
-			throw new RuntimeException("No block found for the name " + fullName + ".");
-		}
-
-		return block;
-	}
 }

@@ -1,8 +1,8 @@
-package dar.world.blocks;
+package dar.darMod.blocks;
 
 import dar.world.Block;
 
-public class Air extends Block {
+public class Grass extends Block {
 	@Override
 	public String getModName() {
 		return "dar";
@@ -10,16 +10,16 @@ public class Air extends Block {
 
 	@Override
 	public String getName() {
-		return "air";
+		return "grass";
 	}
 
 	@Override
 	public boolean isAir() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean render() {
-		return false;
+		return true;
 	}
 }

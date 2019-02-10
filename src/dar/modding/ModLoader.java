@@ -10,7 +10,7 @@ public class ModLoader {
 	private static void loadMod(Mod mod) {
 		if (mods.containsKey(mod.getModID())) {
 			throw new RuntimeException(
-					"This mod " + mod.getModName() + " of another mod with the same id is already loaded.");
+					"The mod " + mod.getModName() + " or another mod with the same id has already been loaded.");
 		}
 
 		mod.load();

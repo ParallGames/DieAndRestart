@@ -1,18 +1,14 @@
 package dar.textures;
 
-import java.util.HashMap;
-
+import dar.entities.Side;
 import dar.gui.Panel;
-import dar.world.Block;
 import javafx.scene.image.Image;
 
 public class Textures {
-	private static final String PATH = "/resources/images/";
+	private static final String PATH = "/resources/textures/";
 
 	private static Image playerRightTexture;
 	private static Image playerLeftTexture;
-
-	private static HashMap<Block, Image> blockTextures = new HashMap<>();
 
 	public static void loadTextures() {
 		playerRightTexture = new Image(Panel.class.getResourceAsStream(PATH + "playerRight.png"), 13 * 4, 23 * 4, false,
@@ -21,34 +17,11 @@ public class Textures {
 				false);
 	}
 
-	public static void addBlockTexture(Block target, Image texture) {
-		if (!target.render()) {
-			throw new RuntimeException(
-					"The " + target.getFullName() + " block isn't rendered. it's useless to give it a textre.");
+	public static Image getPlayerTexture(Side side) {
+		if (side == Side.LEFT) {
+			return playerLeftTexture;
+		} else {
+			return playerRightTexture;
 		}
-
-		if (blockTextures.containsKey(target)) {
-			throw new RuntimeException("The " + target.getFullName() + " block already has a texture.");
-		}
-
-		blockTextures.put(target, texture);
-	}
-
-	public static Image getBlockTexture(Block target) {
-		Image texture = blockTextures.get(target);
-
-		if (texture == null) {
-			throw new RuntimeException("No texture found for " + target.getFullName() + " block.");
-		}
-
-		return texture;
-	}
-
-	public static Image getPlayerRightTexture() {
-		return playerRightTexture;
-	}
-
-	public static Image getPlayerLeftTexture() {
-		return playerLeftTexture;
 	}
 }

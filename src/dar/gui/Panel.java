@@ -1,5 +1,7 @@
 package dar.gui;
 
+import dar.player.Player;
+import dar.textures.BlockTextures;
 import dar.textures.Textures;
 import dar.world.World;
 import javafx.application.Platform;
@@ -35,14 +37,15 @@ public class Panel extends Group {
 				for (int x = 0; x < World.WIDTH; x++) {
 					for (int y = 0; y < World.HEIGHT; y++) {
 						if (World.get(x, y).render()) {
-							gc.drawImage(Textures.getBlockTexture(World.get(x, y)), x * SIZE,
-									Window.HEIGHT - y * SIZE - SIZE, SIZE, SIZE);
+							gc.drawImage(BlockTextures.get(World.get(x, y)), x * SIZE, Window.HEIGHT - y * SIZE - SIZE,
+									SIZE, SIZE);
 						}
 					}
 				}
 
-				Image playerTexture = World.getPlayer().getDirection() ? Textures.getPlayerLeftTexture()
-						: Textures.getPlayerRightTexture();
+				Player player = World.getPlayer();
+
+				Image playerTexture = Textures.getPlayerTexture(player.getSide());
 
 				gc.drawImage(playerTexture, x, y, World.getPlayer().getWidth() * SIZE_FACTOR,
 						World.getPlayer().getHeight() * SIZE_FACTOR);

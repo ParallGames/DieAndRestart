@@ -1,5 +1,6 @@
 package dar.world;
 
+import dar.darMod.blocks.DARBlocks;
 import dar.player.Player;
 
 public class World {
@@ -12,17 +13,17 @@ public class World {
 	static {
 		for (int x = 0; x < WIDTH; x++) {
 			for (int y = 0; y < HEIGHT; y++) {
-				world[x][y] = Blocks.get("dar:air").getID();
+				world[x][y] = DARBlocks.AIR.getID();
 			}
 		}
 
 		for (int x = 0; x < WIDTH; x++) {
-			world[x][0] = Blocks.get("dar:grass").getID();
+			world[x][0] = DARBlocks.GRASS.getID();
 		}
 
 		for (int y = 0; y < HEIGHT; y++) {
-			world[0][y] = Blocks.get("dar:grass").getID();
-			world[WIDTH - 1][y] = Blocks.get("dar:grass").getID();
+			world[0][y] = DARBlocks.GRASS.getID();
+			world[WIDTH - 1][y] = DARBlocks.GRASS.getID();
 		}
 	}
 

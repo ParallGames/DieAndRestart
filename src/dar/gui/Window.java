@@ -1,6 +1,5 @@
 package dar.gui;
 
-import dar.textures.Textures;
 import dar.world.World;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -21,7 +20,6 @@ public class Window extends Application {
 
 	@Override
 	public void start(Stage primaryStage) {
-		Textures.loadTextures();
 		Group root = new Group();
 		root.getChildren().add(panel);
 

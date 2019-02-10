@@ -1,6 +1,7 @@
 package dar.player;
 
 import dar.entities.Entity;
+import dar.entities.Side;
 import dar.gui.Key;
 
 public class Player extends Entity {
@@ -32,11 +33,11 @@ public class Player extends Entity {
 		}
 		if (Key.isADown()) {
 			accelX(-speed);
-			direction = true;
+			side = Side.LEFT;
 		}
 		if (Key.isDDown()) {
 			accelX(speed);
-			direction = false;
+			side = Side.RIGHT;
 		}
 		if (Key.isWDown()) {
 			jump();

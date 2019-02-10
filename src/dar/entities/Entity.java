@@ -13,7 +13,7 @@ public abstract class Entity {
 	protected int speedY = 0;
 
 	protected boolean onFloor = false;
-	protected boolean direction = false;
+	protected Side side = Side.RIGHT;
 
 	public int getX() {
 		return x;
@@ -114,7 +114,7 @@ public abstract class Entity {
 		speedX *= 0.9;
 	}
 
-	public boolean getDirection() {
-		return direction;
+	public Side getSide() {
+		return side;
 	}
 }
