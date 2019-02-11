@@ -43,7 +43,7 @@ public abstract class Entity {
 		while (moveX > 0) {
 			int x = (this.x + this.width) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
-				if (!World.get(x, y).isAir()) {
+				if (World.get(x, y).isSolid()) {
 					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
 						if (this.width + this.x == x * 1000) {
 							speedX = 0;
@@ -58,7 +58,7 @@ public abstract class Entity {
 		while (moveX < 0) {
 			int x = (this.x - 1) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
-				if (!World.get(x, y).isAir()) {
+				if (World.get(x, y).isSolid()) {
 					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
 						if (x * 1000 + 1000 == this.x) {
 							speedX = 0;
@@ -76,7 +76,7 @@ public abstract class Entity {
 		while (moveY > 0) {
 			int y = (this.y + this.height) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
-				if (!World.get(x, y).isAir()) {
+				if (World.get(x, y).isSolid()) {
 					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
 						if (this.height + this.y == y * 1000) {
 							speedY = 0;
@@ -91,7 +91,7 @@ public abstract class Entity {
 		while (moveY < 0) {
 			int y = (this.y - 1) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
-				if (!World.get(x, y).isAir()) {
+				if (World.get(x, y).isSolid()) {
 					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
 						if (y * 1000 + 1000 == this.y) {
 							speedY = 0;
@@ -110,6 +110,18 @@ public abstract class Entity {
 		onFloor = false;
 		moveX(speedX);
 		moveY(speedY);
+
+		if (x < 0) {
+			x += World.WIDTH * 1000;
+		} else if (x > World.WIDTH * 1000) {
+			x -= World.WIDTH * 1000;
+		}
+
+		if (y < 0) {
+			y += World.HEIGHT * 1000;
+		} else if (y > World.HEIGHT * 1000) {
+			y -= World.HEIGHT * 1000;
+		}
 
 		speedX *= 0.9;
 	}

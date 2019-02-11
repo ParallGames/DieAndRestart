@@ -4,7 +4,7 @@ import dar.world.Block;
 
 public class Air extends Block {
 	@Override
-	public String getModName() {
+	public String getModID() {
 		return "dar";
 	}
 
@@ -14,8 +14,8 @@ public class Air extends Block {
 	}
 
 	@Override
-	public boolean isAir() {
-		return true;
+	public boolean isSolid() {
+		return false;
 	}
 
 	@Override

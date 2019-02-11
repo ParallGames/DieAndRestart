@@ -21,10 +21,12 @@ public class World {
 			world[x][0] = DARBlocks.GRASS.getID();
 		}
 
-		for (int y = 0; y < HEIGHT; y++) {
-			world[0][y] = DARBlocks.GRASS.getID();
-			world[WIDTH - 1][y] = DARBlocks.GRASS.getID();
-		}
+		/*
+		 * for (int y = 3; y < HEIGHT; y++) { world[0][y] = DARBlocks.GRASS.getID();
+		 * world[WIDTH - 1][y] = DARBlocks.GRASS.getID(); }
+		 */
+
+		world[5][0] = DARBlocks.AIR.getID();
 	}
 
 	public static Player getPlayer() {
@@ -32,6 +34,18 @@ public class World {
 	}
 
 	public static Block get(int x, int y) {
+		if (x < 0) {
+			x += WIDTH;
+		} else if (x >= WIDTH) {
+			x -= WIDTH;
+		}
+
+		if (y < 0) {
+			y += HEIGHT;
+		} else if (y >= HEIGHT) {
+			y -= HEIGHT;
+		}
+
 		return Blocks.get(world[x][y]);
 	}
 
