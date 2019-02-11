@@ -27,6 +27,8 @@ public class World {
 		 */
 
 		world[5][0] = DARBlocks.AIR.getID();
+
+		world[10][1] = DARBlocks.GRASS.getID();
 	}
 
 	public static Player getPlayer() {

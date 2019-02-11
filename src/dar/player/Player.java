@@ -16,7 +16,7 @@ public class Player extends Entity {
 
 	public void jump() {
 		if (onFloor) {
-			speedY += 160;
+			speedY += 180;
 		}
 	}
 
@@ -41,6 +41,7 @@ public class Player extends Entity {
 		if (Key.isWDown()) {
 			jump();
 		}
+
 		speedY -= 10;
 
 		super.tick();

@@ -55,6 +55,7 @@ public abstract class Entity {
 			this.x++;
 			moveX--;
 		}
+
 		while (moveX < 0) {
 			int x = (this.x - 1) / 1000;
 			for (int y = 0; y < World.HEIGHT; y++) {
@@ -69,6 +70,12 @@ public abstract class Entity {
 			}
 			this.x--;
 			moveX++;
+		}
+
+		if (this.x < 0) {
+			this.x += World.WIDTH * 1000;
+		} else if (this.x >= World.WIDTH * 1000) {
+			this.x -= World.WIDTH * 1000;
 		}
 	}
 
@@ -88,6 +95,7 @@ public abstract class Entity {
 			this.y++;
 			moveY--;
 		}
+
 		while (moveY < 0) {
 			int y = (this.y - 1) / 1000;
 			for (int x = 0; x < World.WIDTH; x++) {
@@ -104,26 +112,22 @@ public abstract class Entity {
 			this.y--;
 			moveY++;
 		}
+
+		if (this.y < 0) {
+			this.y += World.HEIGHT * 1000;
+		} else if (this.y >= World.HEIGHT * 1000) {
+			this.y -= World.HEIGHT * 1000;
+		}
 	}
 
 	public void tick() {
 		onFloor = false;
+
 		moveX(speedX);
 		moveY(speedY);
 
-		if (x < 0) {
-			x += World.WIDTH * 1000;
-		} else if (x > World.WIDTH * 1000) {
-			x -= World.WIDTH * 1000;
-		}
-
-		if (y < 0) {
-			y += World.HEIGHT * 1000;
-		} else if (y > World.HEIGHT * 1000) {
-			y -= World.HEIGHT * 1000;
-		}
-
 		speedX *= 0.9;
+		speedY *= 0.99;
 	}
 
 	public Side getSide() {
