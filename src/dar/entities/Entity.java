@@ -39,37 +39,86 @@ public abstract class Entity {
 		speedY += y;
 	}
 
-	public void moveX(int moveX) {
-		while (moveX > 0) {
-			int x = (this.x + this.width) / 1000;
-			for (int y = 0; y < World.HEIGHT; y++) {
-				if (World.get(x, y).isSolid()) {
-					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
-						if (this.width + this.x == x * 1000) {
-							speedX = 0;
-							return;
-						}
+	protected boolean canRight() {
+		int x = (this.x + this.width) / 1000;
+		for (int y = 0; y < World.HEIGHT; y++) {
+			if (World.get(x, y).isSolid()) {
+				if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
+					if (this.width + this.x == x * 1000) {
+						speedX = 0;
+						return false;
 					}
 				}
 			}
-			this.x++;
-			moveX--;
+		}
+
+		return true;
+	}
+
+	protected boolean canLeft() {
+		int x = (this.x - 1) / 1000;
+		for (int y = 0; y < World.HEIGHT; y++) {
+			if (World.get(x, y).isSolid()) {
+				if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
+					if (x * 1000 + 1000 == this.x) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	protected boolean canUp() {
+		int y = (this.y + this.height) / 1000;
+		for (int x = 0; x < World.WIDTH; x++) {
+			if (World.get(x, y).isSolid()) {
+				if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
+					if (this.height + this.y == y * 1000) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	protected boolean canDown() {
+		int y = (this.y - 1) / 1000;
+		for (int x = 0; x < World.WIDTH; x++) {
+			if (World.get(x, y).isSolid()) {
+				if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
+					if (y * 1000 + 1000 == this.y) {
+						return false;
+					}
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public void moveX(int moveX) {
+		while (moveX > 0) {
+			if (canRight()) {
+				this.x++;
+				moveX--;
+			} else {
+				speedX = 0;
+				break;
+			}
 		}
 
 		while (moveX < 0) {
-			int x = (this.x - 1) / 1000;
-			for (int y = 0; y < World.HEIGHT; y++) {
-				if (World.get(x, y).isSolid()) {
-					if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
-						if (x * 1000 + 1000 == this.x) {
-							speedX = 0;
-							return;
-						}
-					}
-				}
+			if (canLeft()) {
+				this.x--;
+				moveX++;
+			} else {
+				speedX = 0;
+				break;
 			}
-			this.x--;
-			moveX++;
 		}
 
 		if (this.x < 0) {
@@ -81,36 +130,24 @@ public abstract class Entity {
 
 	public void moveY(int moveY) {
 		while (moveY > 0) {
-			int y = (this.y + this.height) / 1000;
-			for (int x = 0; x < World.WIDTH; x++) {
-				if (World.get(x, y).isSolid()) {
-					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
-						if (this.height + this.y == y * 1000) {
-							speedY = 0;
-							return;
-						}
-					}
-				}
+			if (canUp()) {
+				this.y++;
+				moveY--;
+			} else {
+				speedY = 0;
+				break;
 			}
-			this.y++;
-			moveY--;
 		}
 
 		while (moveY < 0) {
-			int y = (this.y - 1) / 1000;
-			for (int x = 0; x < World.WIDTH; x++) {
-				if (World.get(x, y).isSolid()) {
-					if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
-						if (y * 1000 + 1000 == this.y) {
-							speedY = 0;
-							onFloor = true;
-							return;
-						}
-					}
-				}
+			if (canDown()) {
+				this.y--;
+				moveY++;
+			} else {
+				speedY = 0;
+				onFloor = true;
+				break;
 			}
-			this.y--;
-			moveY++;
 		}
 
 		if (this.y < 0) {
