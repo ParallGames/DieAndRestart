@@ -21,14 +21,12 @@ public class World {
 			world[x][0] = DARBlocks.GRASS.getID();
 		}
 
-		/*
-		 * for (int y = 3; y < HEIGHT; y++) { world[0][y] = DARBlocks.GRASS.getID();
-		 * world[WIDTH - 1][y] = DARBlocks.GRASS.getID(); }
-		 */
-
 		world[5][0] = DARBlocks.AIR.getID();
 
 		world[10][1] = DARBlocks.GRASS.getID();
+
+		world[20][3] = DARBlocks.GRASS.getID();
+		set(20, 2, DARBlocks.GRASS);
 	}
 
 	public static Player getPlayer() {

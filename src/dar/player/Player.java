@@ -44,6 +44,8 @@ public class Player extends Entity {
 
 		speedY -= 10;
 
+		System.out.println(x);
+
 		super.tick();
 	}
 }

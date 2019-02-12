@@ -40,15 +40,14 @@ public abstract class Entity {
 	}
 
 	protected boolean canRight() {
-		int x = (this.x + this.width) / 1000;
-		for (int y = 0; y < World.HEIGHT; y++) {
-			if (World.get(x, y).isSolid()) {
-				if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
-					if (this.width + this.x == x * 1000) {
-						speedX = 0;
-						return false;
-					}
-				}
+		int blockX = (this.x + this.width) / 1000;
+
+		int startY = this.y / 1000;
+		int endY = (this.y + this.height - 1) / 1000;
+
+		for (int y = startY; y <= endY; y++) {
+			if (World.get(blockX, y).isSolid() && blockX * 1000 == this.width + this.x) {
+				return false;
 			}
 		}
 
@@ -56,14 +55,14 @@ public abstract class Entity {
 	}
 
 	protected boolean canLeft() {
-		int x = (this.x - 1) / 1000;
-		for (int y = 0; y < World.HEIGHT; y++) {
-			if (World.get(x, y).isSolid()) {
-				if ((this.height + 1000) / 2 > Math.abs((this.y + this.height / 2) - (y * 1000 + 500))) {
-					if (x * 1000 + 1000 == this.x) {
-						return false;
-					}
-				}
+		int blockX = this.x / 1000 - 1;
+
+		int startY = this.y / 1000;
+		int endY = (this.y + this.height - 1) / 1000;
+
+		for (int y = startY; y <= endY; y++) {
+			if (World.get(blockX, y).isSolid() && (blockX + 1) * 1000 == this.x) {
+				return false;
 			}
 		}
 
@@ -71,14 +70,14 @@ public abstract class Entity {
 	}
 
 	protected boolean canUp() {
-		int y = (this.y + this.height) / 1000;
-		for (int x = 0; x < World.WIDTH; x++) {
-			if (World.get(x, y).isSolid()) {
-				if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
-					if (this.height + this.y == y * 1000) {
-						return false;
-					}
-				}
+		int blockY = (this.y + this.height) / 1000;
+
+		int startX = this.x / 1000;
+		int endX = (this.x + this.width - 1) / 1000;
+
+		for (int x = startX; x <= endX; x++) {
+			if (World.get(x, blockY).isSolid() && blockY * 1000 == this.height + this.y) {
+				return false;
 			}
 		}
 
@@ -86,14 +85,14 @@ public abstract class Entity {
 	}
 
 	protected boolean canDown() {
-		int y = (this.y - 1) / 1000;
-		for (int x = 0; x < World.WIDTH; x++) {
-			if (World.get(x, y).isSolid()) {
-				if ((this.width + 1000) / 2 > Math.abs((this.x + this.width / 2) - (x * 1000 + 500))) {
-					if (y * 1000 + 1000 == this.y) {
-						return false;
-					}
-				}
+		int blockY = this.y / 1000 - 1;
+
+		int startX = this.x / 1000;
+		int endX = (this.x + this.width - 1) / 1000;
+
+		for (int x = startX; x <= endX; x++) {
+			if (World.get(x, blockY).isSolid() && (blockY + 1) * 1000 == this.y) {
+				return false;
 			}
 		}
 
