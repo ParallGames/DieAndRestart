@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 
 public class Panel extends Group {
 	public static final double SIZE = Window.HEIGHT / World.HEIGHT;
-	public static final double SIZE_FACTOR = SIZE / 1000;
+	public static final double SIZE_FACTOR = SIZE / World.UNIT;
 
 	private final GraphicsContext gc;
 

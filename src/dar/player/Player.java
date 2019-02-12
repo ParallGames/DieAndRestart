@@ -3,32 +3,33 @@ package dar.player;
 import dar.entities.Entity;
 import dar.entities.Side;
 import dar.gui.Key;
+import dar.world.World;
 
 public class Player extends Entity {
 	public Player() {
-		this.height = 1800;
-		this.width = 800;
-		this.x = 0;
-		this.y = 2000;
+		this.height = World.getUnits(1.8);
+		this.width = World.getUnits(0.8);
+		this.x = World.getUnits(0);
+		this.y = World.getUnits(2);
 		this.speedX = 0;
 		this.speedY = 0;
 	}
 
 	public void jump() {
 		if (onFloor) {
-			speedY += 180;
+			speedY += World.getUnits(0.17);
 		}
 	}
 
 	@Override
 	public void tick() {
-		int speed = 10;
-		height = 1800;
+		int speed = World.getUnits(0.01);
+		height = World.getUnits(1.8);
 		if (Key.isShiftDown()) {
-			speed = 5;
-			height = 1300;
+			speed = World.getUnits(0.005);
+			height = World.getUnits(1.3);
 		} else if (Key.isCtrlDown()) {
-			speed = 20;
+			speed = World.getUnits(0.02);
 		}
 		if (Key.isADown()) {
 			accelX(-speed);
@@ -42,9 +43,7 @@ public class Player extends Entity {
 			jump();
 		}
 
-		speedY -= 10;
-
-		System.out.println(x);
+		speedY -= World.getUnits(0.01);
 
 		super.tick();
 	}

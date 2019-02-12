@@ -40,13 +40,13 @@ public abstract class Entity {
 	}
 
 	protected boolean canRight() {
-		int blockX = (this.x + this.width) / 1000;
+		int blockX = (this.x + this.width) / World.UNIT;
 
-		int startY = this.y / 1000;
-		int endY = (this.y + this.height - 1) / 1000;
+		int startY = this.y / World.UNIT;
+		int endY = (this.y + this.height - 1) / World.UNIT;
 
 		for (int y = startY; y <= endY; y++) {
-			if (World.get(blockX, y).isSolid() && blockX * 1000 == this.width + this.x) {
+			if (World.get(blockX, y).isSolid() && blockX * World.UNIT == this.width + this.x) {
 				return false;
 			}
 		}
@@ -55,13 +55,13 @@ public abstract class Entity {
 	}
 
 	protected boolean canLeft() {
-		int blockX = this.x / 1000 - 1;
+		int blockX = this.x / World.UNIT - 1;
 
-		int startY = this.y / 1000;
-		int endY = (this.y + this.height - 1) / 1000;
+		int startY = this.y / World.UNIT;
+		int endY = (this.y + this.height - 1) / World.UNIT;
 
 		for (int y = startY; y <= endY; y++) {
-			if (World.get(blockX, y).isSolid() && (blockX + 1) * 1000 == this.x) {
+			if (World.get(blockX, y).isSolid() && (blockX + 1) * World.UNIT == this.x) {
 				return false;
 			}
 		}
@@ -70,13 +70,13 @@ public abstract class Entity {
 	}
 
 	protected boolean canUp() {
-		int blockY = (this.y + this.height) / 1000;
+		int blockY = (this.y + this.height) / World.UNIT;
 
-		int startX = this.x / 1000;
-		int endX = (this.x + this.width - 1) / 1000;
+		int startX = this.x / World.UNIT;
+		int endX = (this.x + this.width - 1) / World.UNIT;
 
 		for (int x = startX; x <= endX; x++) {
-			if (World.get(x, blockY).isSolid() && blockY * 1000 == this.height + this.y) {
+			if (World.get(x, blockY).isSolid() && blockY * World.UNIT == this.height + this.y) {
 				return false;
 			}
 		}
@@ -85,13 +85,13 @@ public abstract class Entity {
 	}
 
 	protected boolean canDown() {
-		int blockY = this.y / 1000 - 1;
+		int blockY = this.y / World.UNIT - 1;
 
-		int startX = this.x / 1000;
-		int endX = (this.x + this.width - 1) / 1000;
+		int startX = this.x / World.UNIT;
+		int endX = (this.x + this.width - 1) / World.UNIT;
 
 		for (int x = startX; x <= endX; x++) {
-			if (World.get(x, blockY).isSolid() && (blockY + 1) * 1000 == this.y) {
+			if (World.get(x, blockY).isSolid() && (blockY + 1) * World.UNIT == this.y) {
 				return false;
 			}
 		}
@@ -121,9 +121,9 @@ public abstract class Entity {
 		}
 
 		if (this.x < 0) {
-			this.x += World.WIDTH * 1000;
-		} else if (this.x >= World.WIDTH * 1000) {
-			this.x -= World.WIDTH * 1000;
+			this.x += World.UNIT_WIDTH;
+		} else if (this.x >= World.UNIT_WIDTH) {
+			this.x -= World.UNIT_WIDTH;
 		}
 	}
 
@@ -150,9 +150,9 @@ public abstract class Entity {
 		}
 
 		if (this.y < 0) {
-			this.y += World.HEIGHT * 1000;
-		} else if (this.y >= World.HEIGHT * 1000) {
-			this.y -= World.HEIGHT * 1000;
+			this.y += World.UNIT_HEIGHT;
+		} else if (this.y >= World.UNIT_HEIGHT) {
+			this.y -= World.UNIT_HEIGHT;
 		}
 	}
 
