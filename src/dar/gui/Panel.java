@@ -9,10 +9,11 @@ import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class Panel extends Group {
-	public static final double SIZE = Window.HEIGHT / World.HEIGHT;
+
+	public static final int VIEW_DISTANCE = 32;
+	public static final double SIZE = Window.WIDTH / VIEW_DISTANCE;
 	public static final double SIZE_FACTOR = SIZE / World.UNIT;
 
 	private final GraphicsContext gc;
@@ -22,32 +23,43 @@ public class Panel extends Group {
 		this.getChildren().add(canvas);
 
 		gc = canvas.getGraphicsContext2D();
-		gc.setFill(Color.rgb(255, 255, 255));
 	}
 
 	public void update() {
-		double x = World.getPlayer().getX() * SIZE_FACTOR;
-		double y = Window.HEIGHT - (World.getPlayer().getY() + World.getPlayer().getHeight()) * SIZE_FACTOR;
+		Player player = World.getPlayer();
+
+		final double x = player.getX() * SIZE_FACTOR;
+		final double y = Window.HEIGHT - (player.getY() + player.getHeight()) * SIZE_FACTOR;
+
+		final int camX = player.getX() + player.getWidth() / 2;
+		final int camY = player.getY() + player.getHeight() / 2;
+
+		final int minX = camX / World.UNIT - VIEW_DISTANCE / 2;
+		final int minY = camY / World.UNIT - VIEW_DISTANCE / 2;
+
+		final int maxX = minX + VIEW_DISTANCE + 1;
+		final int maxY = minY + VIEW_DISTANCE + 1;
 
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
 				gc.clearRect(0, 0, Window.WIDTH, Window.HEIGHT);
 
-				for (int x = 0; x < World.WIDTH; x++) {
-					for (int y = 0; y < World.HEIGHT; y++) {
+				for (int x = minX; x < maxX; x++) {
+					for (int y = minY; y < maxY; y++) {
 						if (World.get(x, y).render()) {
-							gc.drawImage(BlockTextures.get(World.get(x, y)), x * SIZE, Window.HEIGHT - y * SIZE - SIZE,
-									SIZE, SIZE);
+							gc.drawImage(BlockTextures.get(World.get(x, y)),
+									x * SIZE - (camX * SIZE_FACTOR) + Window.WIDTH / 2,
+									Window.HEIGHT - y * SIZE - SIZE + (camY * SIZE_FACTOR) - Window.HEIGHT / 2, SIZE,
+									SIZE);
 						}
 					}
 				}
 
-				Player player = World.getPlayer();
-
 				Image playerTexture = Textures.getPlayerTexture(player.getSide());
 
-				gc.drawImage(playerTexture, x, y, World.getPlayer().getWidth() * SIZE_FACTOR,
+				gc.drawImage(playerTexture, x - (camX * SIZE_FACTOR) + Window.WIDTH / 2,
+						y + (camY * SIZE_FACTOR) - Window.HEIGHT / 2, World.getPlayer().getWidth() * SIZE_FACTOR,
 						World.getPlayer().getHeight() * SIZE_FACTOR);
 			}
 		});
