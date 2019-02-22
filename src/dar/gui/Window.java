@@ -8,28 +8,37 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Window extends Application {
-
-	public static final int WIDTH = 1280;
-	public static final int HEIGHT = 720;
-
-	private Panel panel = new Panel();
+	private Panel panel;
 
 	private static final int FPS = 60;
 	private static final long INTERVAL = 1_000_000_000 / FPS;
 	private static long time = System.nanoTime();
 
+	private static Stage primaryStage;
+
+	public static double getHeight() {
+		return primaryStage.getHeight();
+	}
+
+	public static double getWidth() {
+		return primaryStage.getWidth();
+	}
+
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage p) {
+		primaryStage = p;
 		Group root = new Group();
+
+		panel = new Panel();
 		root.getChildren().add(panel);
 
-		Scene scene = new Scene(root, WIDTH, HEIGHT);
+		Scene scene = new Scene(root, 1280, 720);
 		scene.setFill(Color.rgb(0, 0, 0));
 
 		panel.update();
 
 		primaryStage.setScene(scene);
-		primaryStage.setResizable(false);
+		primaryStage.setResizable(true);
 		primaryStage.setTitle("Die And Restart");
 		primaryStage.show();
 
