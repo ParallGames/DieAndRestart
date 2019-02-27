@@ -20,7 +20,7 @@ cp -r src/resources build/class/resources
 #archive
 echo -e "\n\033[1;31mArchiving\033[0m";
 mkdir build/release
-jar cvmf MANIFEST.MF build/release/DAR.jar -C build/class .
+jar cvmf MANIFEST.MF build/release/DieAndRestart.jar -C build/class .
 
 #end
 echo -e "\n\033[1;31mCompleted\033[0m\n";

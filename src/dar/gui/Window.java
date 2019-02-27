@@ -14,19 +14,8 @@ public class Window extends Application {
 	private static final long INTERVAL = 1_000_000_000 / FPS;
 	private static long time = System.nanoTime();
 
-	private static Stage primaryStage;
-
-	public static double getHeight() {
-		return primaryStage.getHeight();
-	}
-
-	public static double getWidth() {
-		return primaryStage.getWidth();
-	}
-
 	@Override
-	public void start(Stage p) {
-		primaryStage = p;
+	public void start(Stage primaryStage) {
 		Group root = new Group();
 
 		panel = new Panel();
@@ -34,8 +23,6 @@ public class Window extends Application {
 
 		Scene scene = new Scene(root, 1280, 720);
 		scene.setFill(Color.rgb(0, 0, 0));
-
-		panel.update();
 
 		primaryStage.setScene(scene);
 		primaryStage.setResizable(true);
@@ -51,7 +38,7 @@ public class Window extends Application {
 			public void run() {
 				while (primaryStage.isShowing()) {
 					World.getPlayer().tick();
-					panel.update();
+					panel.update(scene.getWidth(), scene.getHeight());
 
 					long sleep = time - System.nanoTime() + INTERVAL;
 

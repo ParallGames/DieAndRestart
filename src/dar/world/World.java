@@ -7,7 +7,7 @@ public class World {
 	public static final int HEIGHT = 18;
 	public static final int WIDTH = 32;
 
-	public static final int UNIT = 1024;
+	public static final int UNIT = 65_536;
 
 	public static final int UNIT_HEIGHT = HEIGHT * UNIT;
 	public static final int UNIT_WIDTH = WIDTH * UNIT;
@@ -39,6 +39,8 @@ public class World {
 		set(25, 3, DARBlocks.GRASS);
 		set(26, 3, DARBlocks.GRASS);
 		set(27, 3, DARBlocks.GRASS);
+
+		set(-1, 3, DARBlocks.GRASS);
 	}
 
 	public static Player getPlayer() {
