@@ -1,5 +1,9 @@
 package dar.gui;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import dar.world.World;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -12,7 +16,6 @@ public class Window extends Application {
 
 	private static final int FPS = 60;
 	private static final long INTERVAL = 1_000_000_000 / FPS;
-	private static long time = System.nanoTime();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -33,25 +36,17 @@ public class Window extends Application {
 		root.getChildren().add(key);
 		key.requestFocus();
 
-		new Thread() {
+		ScheduledExecutorService gameLoop = Executors.newSingleThreadScheduledExecutor();
+
+		gameLoop.scheduleAtFixedRate(new Runnable() {
 			@Override
 			public void run() {
-				while (primaryStage.isShowing()) {
-					World.getPlayer().tick();
-					panel.update(scene.getWidth(), scene.getHeight());
-
-					long sleep = time - System.nanoTime() + INTERVAL;
-
-					if (sleep > 0) {
-						try {
-							Thread.sleep(sleep / 1000000, (int) (sleep % 1000000));
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-					}
-					time = System.nanoTime();
+				World.getPlayer().tick();
+				panel.update(scene.getWidth(), scene.getHeight());
+				if (!primaryStage.isShowing()) {
+					gameLoop.shutdown();
 				}
 			}
-		}.start();
+		}, 0, INTERVAL, TimeUnit.NANOSECONDS);
 	}
 }
